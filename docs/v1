@@ -1,0 +1,35 @@
+; --- DRIP CLIENT OVERLAY (Always On Top) ---
+#SingleInstance, Force
+SetWorkingDir %A_ScriptDir%
+
+; Menu setup jo game ke upar rahega
+Gui, +AlwaysOnTop -Caption +Owner +LastFound
+Gui, Color, 111111 ; Dark Theme
+Gui, Font, s10 c6366f1 Bold, Segoe UI
+
+; Header (Is se pakar kar move karein)
+Gui, Add, Progress, x0 y0 w150 h30 Background4f46e5 c4f46e5, 100
+Gui, Add, Text, x10 y5 w130 BackgroundTrans cWhite, DRIP CLIENT v2.5
+
+; Functions
+Gui, Font, s9 cWhite Norm
+Gui, Add, Checkbox, x10 y40 vAimbot, Aimbot Lock
+Gui, Add, Text, x10 y65, Drag Power: 80%
+Gui, Add, Slider, x10 y85 w130 vDragValue Range0-100, 80
+Gui, Add, Checkbox, x10 y115 vESP, ESP Box (2D)
+Gui, Add, Button, gExit x10 y150 w130 h25, DISCONNECT
+
+; Menu Show
+Gui, Show, x50 y50 w150 h185, DripMenu
+return
+
+; Menu ko Mouse se hilane (Move) ke liye code
+~LButton::
+    MouseGetPos, , , id, control
+    WinGetTitle, title, ahk_id %id%
+    if (title = "DripMenu")
+        PostMessage, 0xA1, 2,,, ahk_id %id%
+return
+
+Exit:
+ExitApp
